@@ -1,44 +1,45 @@
+#include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 
-//Modify Programming Project 7 from Chapter 2 so it includes the following:
-//void pay_amount(int dollars, int *twenties, int *tens, int *fives, int *ones);
-//The function should determine the smallest number of bills needed to pay.
-//The pointers point to the value of the amount of bills needed to pay the amount
-//Ex: Cost: $40, *twenties should = 2.
+void removeSpaces(const char *input, char *output) {
+    int i = 0, j = 0;
+    while (input[i] != '\0') {
+        if (input[i] != ' ' && input[i] != ',' && input[i] != '.' && input[i] != '-'
+            && input[i] != '_' && input[i] != '?' && input[i] != '!') {
+            output[j++] = input[i];
+        }
+        i++;
+    }
+    output[j] = '\0';
+}
 
-int Twenty = 0;
-int Ten = 0;
-int Five = 0;
-int One = 0;
-
-int *twenties = &Twenty;
-int *tens = &Ten;
-int *fives = &Five;
-int *ones = &One;
-
-void pay_amount(int dollars, int *twenties, int *tens, int *fives, int *ones) {
-    printf("Enter amount to pay: ");
-    scanf("%d", &dollars);
-        while (dollars >= 20) {
-            *twenties += 1;
-            dollars -= 20;
+int palindromechecker() {
+    bool isPalindrome = true;
+    int top = 0;
+    char phrase[100] = "";
+    printf("Enter a phrase: ");
+    fgets(phrase, sizeof(phrase), stdin);
+    char phrase2[100] = "";
+    removeSpaces(phrase, phrase2);
+    top = strlen(phrase2) - 2;
+    for (int i = 0; i < strlen(phrase); i++) {
+        phrase2[i] = toupper(phrase2[i]);
+    }
+    for (int i = 0; top > 0; i++) {
+        if (phrase2[i] != phrase2[top]) {
+            printf("Not a Palindrome\n");
+            isPalindrome = false;
+            break;
         }
-        while (dollars >= 10) {
-            *tens += 1;
-            dollars -= 10;
-        }
-        while (dollars >= 5) {
-            *fives += 1;
-            dollars -= 5;
-        }
-        while (dollars >= 1) {
-            *ones += 1;
-            dollars -= 1;
-        }
-    printf("Twenty: %d\nTen: %d\nFive: %d\nOne: %d\n", *twenties, *tens, *fives, *ones);
+        top--;
+    }
+    if (isPalindrome) {
+        printf("Palindrome\n");
+    }
 }
 
 int main(void) {
-    pay_amount(0, twenties, tens, fives, ones);
+    palindromechecker();
     return 0;
 }
