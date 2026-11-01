@@ -11,39 +11,34 @@ int Ten = 0;
 int Five = 0;
 int One = 0;
 
+int *twenties = &Twenty;
+int *tens = &Ten;
+int *fives = &Five;
+int *ones = &One;
+
 void pay_amount(int dollars, int *twenties, int *tens, int *fives, int *ones) {
-    twenties = &Twenty;
-    tens = &Ten;
-    fives = &Five;
-    ones = &One;
     printf("Enter amount to pay: ");
     scanf("%d", &dollars);
-    if (dollars >= 20) {
         while (dollars >= 20) {
-            twenties++;
+            *twenties += 1;
             dollars -= 20;
         }
-    }
-    else if (dollars >= 10) {
         while (dollars >= 10) {
-            tens++;
+            *tens += 1;
             dollars -= 10;
         }
-    }
-    else if (dollars >= 5) {
         while (dollars >= 5) {
-            fives++;
+            *fives += 1;
             dollars -= 5;
         }
-    }
-    else if (dollars >= 1) {
         while (dollars >= 1) {
-            ones++;
+            *ones += 1;
             dollars -= 1;
         }
-    }
+    printf("Twenty: %d\nTen: %d\nFive: %d\nOne: %d\n", *twenties, *tens, *fives, *ones);
 }
 
 int main(void) {
+    pay_amount(0, twenties, tens, fives, ones);
     return 0;
 }
